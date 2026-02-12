@@ -1,617 +1,287 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
+  <title>Modern Login Form</title>
   <style>
-    *,
-    *::after,
-    *::before {
-      padding: 0;
+    :root {
+      --bg: #0f172a;
+      --card: rgba(15, 23, 42, 0.72);
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --primary: #38bdf8;
+      --primary-2: #6366f1;
+      --border: rgba(148, 163, 184, 0.26);
+      --input-bg: rgba(15, 23, 42, 0.45);
+      --error: #f43f5e;
+    }
+
+    * {
       margin: 0;
+      padding: 0;
       box-sizing: border-box;
     }
 
-    img {
-      display: block;
-    }
-  
     body {
-      font-family: Arial, Helvetica, sans-serif;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.2), transparent 30%),
+        radial-gradient(circle at 85% 85%, rgba(99, 102, 241, 0.24), transparent 35%),
+        linear-gradient(160deg, #020617 0%, var(--bg) 50%, #111827 100%);
     }
-  
-    /* media style */
-  
-    @media(max-width: 800px) {
-      table {
-        width: 100% !important;
-      }
+
+    .login-card {
+      width: min(100%, 400px);
+      backdrop-filter: blur(18px);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 34px 30px;
+      box-shadow: 0 16px 60px rgba(2, 6, 23, 0.6);
     }
-  
-    @media(max-width: 767px) {
-      .logo-img {
-        width: 200px !important;
-        height: 50px !important;
-      }
-  
-      .f-30 {
-        font-size: 24px !important;
-      }
-  
-      .f-26 {
-        font-size: 20px !important;
-      }
-  
-      .f-20 {
-        font-size: 18px !important;
-      }
-  
-      .f-18 {
-        font-size: 16px !important;
-      }
-  
-      .f-16 {
-        font-size: 14px !important;
-      }
-  
-      .h-60,
-      .h-55 {
-        height: 50px !important;
-      }
-  
-      .h-40 {
-        height: 30px !important;
-      }
-  
-      .h-26,
-      .h-28,
-      .h-30 {
-        height: 25px !important;
-      }
-  
-      .w-120,
-      .w-135 {
-        width: 100px !important;
-      }
+
+    .title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
     }
-  
-    @media (max-width: 667px) {
-      .f-18 {
-        font-size: 15px !important;
-      }
-  
-      .h-5 {
-        height: 2px !important;
-      }
-  
-      .w-40 {
-        width: 20px !important;
-      }
-  
-      .w-30 {
-        width: 20px !important;
-      }
-  
-      .p-td {
-        padding: 7px 12px !important;
-        font-size: 12px !important;
-      }
-  
-      .f-30 {
-        font-size: 20px !important;
-      }
-  
-      .f-26 {
-        font-size: 18px !important;
-      }
-  
-      .f-20 {
-        font-size: 16px !important;
-      }
-  
-      .h-60,
-      .h-55 {
-        height: 40px !important;
-      }
-  
-      .h-40 {
-        height: 20px !important;
-      }
-  
-      .h-26,
-      .h-28,
-      .h-30 {
-        height: 20px !important;
-      }
-  
+
+    .subtitle {
+      color: var(--muted);
+      margin-bottom: 24px;
+      line-height: 1.5;
+      font-size: 0.95rem;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      border: 1px solid #ffffff;
+      background: var(--input-bg);
+      color: var(--text);
+      border-radius: 12px;
+      outline: none;
+      font-size: 0.95rem;
+      padding: 12px 14px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input::placeholder {
+      color: #64748b;
+    }
+
+    input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15);
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 0;
+      background: transparent;
+      color: #7dd3fc;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .meta {
+      margin: 10px 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.88rem;
+    }
+
+    .remember {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #cbd5e1;
+    }
+
+    .remember input {
+      accent-color: var(--primary-2);
+      width: 16px;
+      height: 16px;
+    }
+
+    .forgot {
+      color: #7dd3fc;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .forgot:hover {
+      text-decoration: underline;
+    }
+
+    .submit-btn {
+      width: 100%;
+      border: 0;
+      border-radius: 12px;
+      padding: 12px;
+      color: white;
+      font-size: 0.98rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(90deg, var(--primary) 0%, var(--primary-2) 100%);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 0 8px 20px rgba(56, 189, 248, 0.3);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(99, 102, 241, 0.4);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .signup {
+      margin-top: 18px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .signup a {
+      color: #7dd3fc;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .signup a:hover {
+      text-decoration: underline;
+    }
+
+    .error {
+      margin-top: 8px;
+      color: var(--error);
+      font-size: 0.8rem;
+      min-height: 1em;
     }
 
     @media (max-width: 480px) {
-      .w-120,
-      .w-135 {
-        width: 62px !important;
+      .login-card {
+        padding: 28px 20px;
       }
-      .w-100 {
-        display: block;
-        width: 100%;
+
+      .title {
+        font-size: 1.5rem;
       }
-      .w-100.f-12 {
-        text-align: left !important;
-        padding-top: 15px !important;
+
+      .meta {
+        flex-direction: column;
+        align-items: flex-start;
       }
     }
   </style>
 </head>
-
 <body>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="width: 100%">
-    <tbody>
-      <tr>
-        <td align="center">
-          <table style="width: 700px" width="700" cellpadding="0" cellspacing="0" border="0 " align="center">
-            <tbody>
-              <tr>
-                <td>
-                  <table width="100%" cellpadding="0" cellspacing="0" border="0" bgColor="#030102"
-                    style="background-color: #030102;">
-                    <tbody>
-                      <tr>
-                        <td>
-                          <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                            <tbody>
-                              <tr>
-                                <td class="w-20" style="width: 20px" width="20"></td>
-                                <td>
-                                  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                                    <tbody>
-                                      <tr>
-                                        <td class="h-60" height="60" style="height: 60px;"></td>
-                                      </tr>
-                                      <tr>
-                                        <td>
-                                          <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                                            <tbody>
-                                              <tr>
-                                                <td align="center">
-                                                  <img class="logo-img"
-                                                    src="images/logo.png"
-                                                    alt="Logo" width="228" height="56"
-                                                    style="height: 56px; width: 228px;">
-                                                </td>
-                                              </tr>
-                                              <tr>
-                                                <td class="h-30" height="30" style="height: 30px;"></td>
-                                              </tr>
-                                              <tr>
-                                                <td class="f-30" align="center"
-                                                  style="color: #ffffff; font-size:30px; font-family: Arial, Helvetica, sans-serif;">
-                                                  Dear <span class="f-30"
-                                                    style="color: #FB1054; font-size:30px; font-family: Arial, Helvetica, sans-serif; font-weight: bold;">John
-                                                    Doe,</span>
-                                                </td>
-                                              </tr>
-                                              <tr>
-                                                <td class="h-28" height="28" style="height: 28px;"></td>
-                                              </tr>
-                                              <tr>
-                                                <td class="f-20" align="center"
-                                                  style="color: #ffffff; font-size:20px; font-family: Arial, Helvetica, sans-serif;">
-                                                  Thank you for your booking!
-                                                </td>
-                                              </tr>
-                                              <tr>
-                                                <td class="h-7" height="7" style="height: 7px;"></td>
-                                              </tr>
-                                              <tr>
-                                                <td class="f-20" align="center"
-                                                  style="color: #ffffff; font-size:20px; font-family: Arial, Helvetica, sans-serif;">
-                                                  Your seats have been successfully reserved.
-                                                </td>
-                                              </tr>
-                                            </tbody>
-                                          </table>
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                        <td class="h-55" height="55" style="height: 55px;"></td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </td>
-                                <td class="w-20" style="width: 20px" width="20"></td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </td>
-                      </tr>
+  <main class="login-card">
+    <h1 class="title">Welcome back</h1>
+    <p class="subtitle">Sign in to continue to your dashboard and manage your projects.</p>
 
-                    </tbody>
-                  </table>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <table width="100%" cellpadding="0" cellspacing="0" border="0" bgColor="#ffffff"
-                    style="background-color: #ffffff;">
-                    <tbody>
-                      <tr>
-                        <td>
-                          <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                            <tbody>
-                              <tr>
-                                <td class="w-40" style="width: 40px" width="40"></td>
-                                <td>
-                                  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                                    <tbody>
-                                      <tr>
-                                        <td class="h-40" style="height: 40px" height="40"></td>
-                                      </tr>
-                                      <tr>
-                                        <td>
-                                          <table width="100%" cellpadding="0" cellspacing="0" border="0"
-                                            bgColor="#f9f9f9" style="background-color: #f9f9f9; border-radius: 10px;">
-                                            <tbody>
-                                              <tr>
-                                                <td class="w-30" width="30" style="width: 30px;"></td>
-                                                <td>
-                                                  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                                                    <tbody>
-                                                      <tr>
-                                                        <td class="h-25" height="25" style="height: 25px;"></td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td>
-                                                          <table width="100%" cellpadding="0" cellspacing="0"
-                                                            border="0">
-                                                            <tbody>
-                                                              <tr>
-                                                                <td class="f-26"
-                                                                  style="font-size: 26px; font-family: Arial, Helvetica, sans-serif; color: #111111;">
-                                                                  Echoes of Sound: A Night of Pure Music</td>
-                                                              </tr>
-                                                              <tr>
-                                                                <td class="h-23" height="23" style="height: 23px;"></td>
-                                                              </tr>
-                                                              <tr>
-                                                                <td>
-                                                                  <table width="100%" cellpadding="0" cellspacing="0"
-                                                                    border="0">
-                                                                    <tbody>
-                                                                      <tr>
-                                                                        <td class="w-37" width="37"
-                                                                          style="width: 37px;">
-                                                                          <img class="icon-img"
-                                                                            src="images/artists.png"
-                                                                            alt="Artists" height="37" width="37"
-                                                                            style="height: 37px; width: 37px; display: block;">
-                                                                        </td>
-                                                                        <td class="w-10" width="10" style="width: 10px">
-                                                                        </td>
-                                                                        <td>
-                                                                          <table width="100%" cellpadding="0"
-                                                                            cellspacing="0" border="0">
-                                                                            <tbody>
-                                                                              <tr>
-                                                                                <td class="f-12"
-                                                                                  style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; color: #141414;">
-                                                                                  Artists</td>
-                                                                              </tr>
-                                                                              <tr>
-                                                                                <td class="h-5" height="5"
-                                                                                  style="height: 5px;">
-                                                                                </td>
-                                                                              </tr>
-                                                                              <tr>
-                                                                                <td class="f-16"
-                                                                                  style="font-size: 16px; font-family: Arial, Helvetica, sans-serif; color: #111111;">
-                                                                                  John Smith & The Harmony Band</td>
-                                                                              </tr>
-                                                                            </tbody>
-                                                                          </table>
-                                                                        </td>
-                                                                      </tr>
-                                                                      <tr>
-                                                                        <td class="h-20" height="20"
-                                                                          style="height: 20px;"></td>
-                                                                      </tr>
-                                                                      <tr>
-                                                                        <td class="w-37" width="37"
-                                                                          style="width: 37px;">
-                                                                          <img class="icon-img"
-                                                                            src="images/venue.png"
-                                                                            alt="Venue" height="37" width="37"
-                                                                            style="height: 37px; width: 37px; display: block;">
-                                                                        </td>
-                                                                        <td class="w-10" width="10" style="width: 10px">
-                                                                        </td>
-                                                                        <td>
-                                                                          <table width="100%" cellpadding="0"
-                                                                            cellspacing="0" border="0">
-                                                                            <tbody>
-                                                                              <tr>
-                                                                                <td class="f-12"
-                                                                                  style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; color: #141414;">
-                                                                                  Venue</td>
-                                                                              </tr>
-                                                                              <tr>
-                                                                                <td class="h-5" height="5"
-                                                                                  style="height: 5px;">
-                                                                                </td>
-                                                                              </tr>
-                                                                              <tr>
-                                                                                <td class="f-16"
-                                                                                  style="font-size: 16px; font-family: Arial, Helvetica, sans-serif; color: #111111;">
-                                                                                  Madison Square Garden, New York City,
-                                                                                  USA</td>
-                                                                              </tr>
-                                                                            </tbody>
-                                                                          </table>
-                                                                        </td>
-                                                                      </tr>
-                                                                      <tr>
-                                                                        <td class="h-20" height="20"
-                                                                          style="height: 20px;"></td>
-                                                                      </tr>
-                                                                      <tr>
-                                                                        <td class="w-37" width="37"
-                                                                          style="width: 37px;">
-                                                                          <img class="icon-img"
-                                                                            src="images/date-time.png"
-                                                                            alt="Date & Time" height="37" width="37"
-                                                                            style="height: 37px; width: 37px; display: block;">
-                                                                        </td>
-                                                                        <td class="w-10" width="10" style="width: 10px">
-                                                                        </td>
-                                                                        <td>
-                                                                          <table width="100%" cellpadding="0"
-                                                                            cellspacing="0" border="0">
-                                                                            <tbody>
-                                                                              <tr>
-                                                                                <td class="f-12"
-                                                                                  style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; color: #141414;">
-                                                                                  Date & Time</td>
-                                                                              </tr>
-                                                                              <tr>
-                                                                                <td class="h-5" height="5"
-                                                                                  style="height: 5px;">
-                                                                                </td>
-                                                                              </tr>
-                                                                              <tr>
-                                                                                <td class="f-16"
-                                                                                  style="font-size: 16px; font-family: Arial, Helvetica, sans-serif; color: #111111;">
-                                                                                  Sun, 15 Mar 2025, 07:00 PM</td>
-                                                                              </tr>
-                                                                            </tbody>
-                                                                          </table>
-                                                                        </td>
-                                                                      </tr>
-                                                                    </tbody>
-                                                                  </table>
-                                                                </td>
-                                                              </tr>
-                                                            </tbody>
-                                                          </table>
-                                                        </td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td class="h-25" height="25" style="height: 25px;"></td>
-                                                      </tr>
-                                                    </tbody>
-                                                  </table>
-                                                </td>
-                                                <td class="w-30" width="30" style="width: 30px;"></td>
-                                              </tr>
-                                            </tbody>
-                                          </table>
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                        <td class="h-20" style="height: 20px" height="20"></td>
-                                      </tr>
-                                      <tr>
-                                        <td>
-                                          <table width="100%" cellpadding="0" cellspacing="0" border="0"
-                                            bgColor="#f9f9f9" style="background-color: #f9f9f9; border-radius: 10px;">
-                                            <tbody>
-                                              <tr>
-                                                <td class="w-30" width="30" style="width: 30px;"></td>
-                                                <td>
-                                                  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                                                    <tbody>
-                                                      <tr>
-                                                        <td class="h-30" height="30" style="height: 30px;"></td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td>
-                                                          <table width="100%" cellpadding="0" cellspacing="0"
-                                                            border="0">
-                                                            <tbody>
-                                                              <tr>
-                                                                <td>
-                                                                  <table width="100%" cellpadding="0" cellspacing="0"
-                                                                    border="0">
-                                                                    <tbody>
-                                                                      <tr>
-                                                                        <td align="start" class="w-100">
-                                                                          <table width="100%" cellpadding="0"
-                                                                            cellspacing="0" border="0">
-                                                                            <tbody>
-                                                                              <tr>
-                                                                                <td class="w-37" width="37"
-                                                                                  style="width: 37px;">
-                                                                                  <img class="icon-img"
-                                                                                    src="images/seats.png"
-                                                                                    alt="Seats" height="37" width="37"
-                                                                                    style="height: 37px; width: 37px; display: block;">
-                                                                                </td>
-                                                                                <td class="w-10" width="10"
-                                                                                  style="width: 10px"></td>
-                                                                                <td>
-                                                                                  <table width="100%" cellpadding="0"
-                                                                                    cellspacing="0" border="0">
-                                                                                    <tbody>
-                                                                                      <tr>
-                                                                                        <td class="f-12"
-                                                                                          style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; color: #141414;">
-                                                                                          Reserved Seats</td>
-                                                                                      </tr>
-                                                                                      <tr>
-                                                                                        <td height="5"
-                                                                                          style="height: 5px;"></td>
-                                                                                      </tr>
-                                                                                      <tr>
-                                                                                        <td class="f-16"
-                                                                                          style="font-size: 16px; font-family: Arial, Helvetica, sans-serif; color: #111111;">
-                                                                                          15 Seats</td>
-                                                                                      </tr>
-                                                                                    </tbody>
-                                                                                  </table>
-                                                                                </td>
-                                                                              </tr>
-                                                                            </tbody>
-                                                                          </table>
-                                                                        </td>
-                                                                        <td align="right" class="f-12 w-100"
-                                                                          style="text-align: right; font-size: 12px; font-family: Arial, Helvetica, sans-serif; color: #009245; vertical-align:top;">
-                                                                          Seats Status : CONFIRMED
-                                                                        </td>
-                                                                      </tr>
-                                                                    </tbody>
-                                                                  </table>
-                                                                </td>
-                                                              </tr>
-                                                              <tr>
-                                                                <td class="h-26" height="26" style="height: 26px;"></td>
-                                                              </tr>
-                                                              <tr>
-                                                                <td>
-                                                                  <table width="100%" cellpadding="0" cellspacing="0"
-                                                                    border="1" bgColor="#FFFEFE"
-                                                                    style="background-color: #FFFEFE; border-collapse: collapse; border: 1px solid #E6E4E4;">
-                                                                    <tbody>
-                                                                      <tr>
-                                                                        <td width="120" class="w-120 f-14 p-td"
-                                                                          style="width: 120px; padding: 10px 24px 10px 14px; color: #212121; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">
-                                                                          Row</td>
-                                                                        <td width="135" class="w-135 f-14 p-td"
-                                                                          style="width: 135px; padding: 10px 14px 10px 14px; color: #212121; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">
-                                                                          No of Seats</td>
-                                                                        <td class="f-14 p-td"
-                                                                          style="padding: 10px 24px 10px 14px; color: #212121; font-size: 14px;">
-                                                                          Seats</td>
-                                                                      </tr>
-                                                                      <tr>
-                                                                        <td width="120" class="w-120 f-14 p-td"
-                                                                          style="width: 120px; padding: 7px 24px 7px 14px; color: #212121; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">
-                                                                          A Row</td>
-                                                                        <td width="135" class="w-135 f-14 p-td"
-                                                                          style="width: 135px; padding: 7px 14px 7px 14px; color: #212121; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">
-                                                                          10</td>
-                                                                        <td class="f-14 p-td"
-                                                                          style="padding: 7px 24px 7px 14px; color: #212121; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">
-                                                                          1, 2, 3, 4, 5, 6, 7, 8, 9, 10</td>
-                                                                      </tr>
-                                                                      <tr>
-                                                                        <td width="120" class="w-120 f-14 p-td"
-                                                                          style="width: 120px; padding: 7px 24px 7px 14px; color: #212121; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">
-                                                                          B Row</td>
-                                                                        <td width="135" class="w-135 f-14 p-td"
-                                                                          style="width: 135px; padding: 7px 14px 7px 14px; color: #212121; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">
-                                                                          3</td>
-                                                                        <td class="f-14 p-td"
-                                                                          style="padding: 7px 24px 7px 14px; color: #212121; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">
-                                                                          2, 7, 14</td>
-                                                                      </tr>
-                                                                      <tr>
-                                                                        <td width="120" class="w-120 f-14 p-td"
-                                                                          style="width: 120px; padding: 7px 24px 7px 14px; color: #212121; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">
-                                                                          C Row</td>
-                                                                        <td width="135" class="w-135 f-14 p-td"
-                                                                          style="width: 135px; padding: 7px 14px 7px 14px; color: #212121; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">
-                                                                          2</td>
-                                                                        <td class="f-14 p-td"
-                                                                          style="padding: 7px 24px 7px 14px; color: #212121; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">
-                                                                          6, 11</td>
-                                                                      </tr>
-                                                                    </tbody>
-                                                                  </table>
-                                                                </td>
-                                                              </tr>
-                                                              <tr>
-                                                                <td class="h-26" height="26" style="height: 26px;"></td>
-                                                              </tr>
-                                                              <tr>
-                                                                <td align="center" class="f-18"
-                                                                  style="font-size: 18px; color: #111111; font-family: Arial, Helvetica, sans-serif;">
-                                                                  Total Paid: <span class="f-18"
-                                                                    style="color: #FB1054; font-weight: bold; font-size:18px; font-family: Arial, Helvetica, sans-serif;">$699</span>
-                                                                </td>
-                                                              </tr>
-                                                            </tbody>
-                                                          </table>
-                                                        </td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td class="h-26" height="26" style="height: 26px;"></td>
-                                                      </tr>
-                                                    </tbody>
-                                                  </table>
-                                                </td>
-                                                <td class="w-30" width="30" style="width: 30px;"></td>
-                                              </tr>
-                                            </tbody>
-                                          </table>
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                        <td class="h-24" style="height: 24px" height="24"></td>
-                                      </tr>
-                                      <tr>
-                                        <td class="f-16"
-                                          style="font-size: 16px; color: #000000; font-family: Arial, Helvetica, sans-serif;">
-                                          Enjoy the concert!</td>
-                                      </tr>
-                                      <tr>
-                                        <td class="h-26" style="height: 26px" height="26"></td>
-                                      </tr>
-                                      <tr>
-                                        <td class="f-16"
-                                          style="font-size: 14px; color: #000000; font-family: Arial, Helvetica, sans-serif;">
-                                          Best Regards,</td>
-                                      </tr>
-                                      <tr>
-                                        <td class="h-6" height="6" style="height: 6px;"></td>
-                                      </tr>
-                                      <tr>
-                                        <td class="f-16"
-                                          style="font-size: 16px; color: #000000; font-family: Arial, Helvetica, sans-serif;">
-                                          Concert Booking Team</td>
-                                      </tr>
-                                      <tr>
-                                        <td class="h-40" height="40" style="height: 40px;"></td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </td>
-                                <td class="w-40" style="width: 40px" width="40"></td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </td>
-                      </tr>
+    <form novalidate>
+      <div class="field">
+        <label for="email">Email</label>
+        <div class="input-wrap">
+          <input id="email" type="email" name="email" placeholder="you@example.com" required />
+        </div>
+        <p class="error" id="email-error"></p>
+      </div>
 
-                    </tbody>
-                  </table>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+      <div class="field">
+        <label for="password">Password</label>
+        <div class="input-wrap">
+          <input id="password" type="password" name="password" placeholder="Enter your password" required minlength="8" />
+          <button type="button" class="password-toggle" id="toggle-password" aria-label="Toggle password visibility">SHOW</button>
+        </div>
+        <p class="error" id="password-error"></p>
+      </div>
+
+      <div class="meta">
+        <label class="remember" for="remember">
+          <input type="checkbox" id="remember" />
+          Remember me
+        </label>
+        <a class="forgot" href="#">Forgot password?</a>
+      </div>
+
+      <button class="submit-btn" type="submit">Sign In</button>
+    </form>
+
+    <p class="signup">Don’t have an account? <a href="#">Create one</a></p>
+  </main>
+
+  <script>
+    const form = document.querySelector("form");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const emailError = document.getElementById("email-error");
+    const passwordError = document.getElementById("password-error");
+    const togglePassword = document.getElementById("toggle-password");
+
+    const validate = () => {
+      let valid = true;
+
+      if (!emailInput.value || !emailInput.checkValidity()) {
+        emailError.textContent = "Please enter a valid email address.";
+        valid = false;
+      } else {
+        emailError.textContent = "";
+      }
+
+      if (!passwordInput.value || passwordInput.value.length < 8) {
+        passwordError.textContent = "Password must be at least 8 characters long.";
+        valid = false;
+      } else {
+        passwordError.textContent = "";
+      }
+
+      return valid;
+    };
+
+    form.addEventListener("submit", (event) => {
+      if (!validate()) {
+        event.preventDefault();
+      }
+    });
+
+    togglePassword.addEventListener("click", () => {
+      const isHidden = passwordInput.type === "password";
+      passwordInput.type = isHidden ? "text" : "password";
+      togglePassword.textContent = isHidden ? "HIDE" : "SHOW";
+    });
+  </script>
 </body>
-
 </html>
